@@ -1,9 +1,46 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #e0f2f1;
   font-family: Arial, sans-serif;
+  background: -webkit-linear-gradient(
+    65deg,
+    #ff7043 50%,
+    #e8a490 50%
+  ); /* For Safari */
+  background: -moz-linear-gradient(
+    65deg,
+    #ff7043 50%,
+    #e8a490 50%
+  ); /* For Firefox */
+  background: -o-linear-gradient(
+    65deg,
+    #ff7043 50%,
+    #e8a490 50%
+  ); /* For older versions of Opera */
+  background: linear-gradient(
+    65deg,
+    #ff7043 50%,
+    #e8a490 50%
+  ); /* Standard syntax */
 }
+
+.mainHead {
+  background-color: #008080;
+  width: 50%;
+  height: 4rem;
+  margin: 4rem auto;
+  border-radius: 1rem;
+}
+.day {
+  margin-bottom: 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: relative;
+  top: 1rem;
+  text-align: center;
+  color: white;
+}
+
 .container {
   width: 50%;
   margin: 4rem auto;
@@ -13,13 +50,6 @@ body {
   background-color: #ffffff;
 }
 
-.day {
-  margin-bottom: 3rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-  color: #00796b;
-}
 .listItem {
   background-color: #e8eaf6;
   color: #424242;
@@ -37,12 +67,12 @@ body {
   position: relative;
   left: 1rem;
 }
-.todo-text{
+.todo-text {
   width: 60%;
 }
-.todo-date{
+.todo-date {
   color: goldenrod;
-} 
+}
 .editButton {
   background: none;
   border: none;
