@@ -52,6 +52,7 @@
 
               <form class="deleteform" action="/delete" method="post">
                 <input type="hidden" value="<%= items._id %>" name="index" />
+                <input type="hidden" value="<%= kindOfDay  %>" name="title" />
                 <button class="deleteButton" type="submit">
                   <i class="fa-solid fa-trash"></i>
                 </button>
@@ -71,8 +72,9 @@
           />
           <button
             type="submit"
-            name="button"
+            name="title"
             class="btn btn-lg btn-outline-primary addBtn"
+            value="<%= kindOfDay %>"
           >
             Add
           </button>
@@ -180,16 +182,18 @@
           .querySelector(".editButton")
           .getAttribute("data-index");
         console.log("Index to be sent:", index); // Debugging line
-        updateTodoItem(index, newValue);
+        const title = document.querySelector(".day").textContent;
+        updateTodoItem(title, index, newValue);
       }
 
-      function updateTodoItem(index, newValue) {
+      function updateTodoItem(title, index, newValue) {
         fetch(`/update`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            title: title,
             index: index,
             newItem: newValue,
           }),
