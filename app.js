@@ -10,7 +10,9 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 const _ = require("lodash");
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+mongoose.connect(
+  "mongodb+srv://admin-aman:Test%40123@cluster0.hjzrf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/todoDB"
+);
 
 const itemSchema = {
   name: String,
