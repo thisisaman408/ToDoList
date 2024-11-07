@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.json());
+const _ = require("lodash");
 
 mongoose.connect("mongodb://localhost:27017/todolistDB");
 
@@ -58,7 +59,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:anything", (req, res) => {
-  let anything = req.params.anything;
+  let anything = _.capitalize(req.params.anything);
   List.findOne({ name: anything })
     .then((list) => {
       if (!list) {
