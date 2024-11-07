@@ -26,22 +26,22 @@
 
     <div class="container">
       <ul class="list-group">
-        <% for (let i = 0; i < newList.length; i++) { %>
+        <% newList.forEach((items)=>{ %>
         <li class="list-group-item listItem">
           <div class="d-flex justify-content-between align-items-center">
-            <span class="todo-text"> <%= newList[i].name %></span>
-            <span class="todo-date"> <%= newList[i].date %></span>
+            <span class="todo-text"> <%= items.name %></span>
+            <span class="todo-date"> <%= items.date %></span>
             <input
               type="text"
               class="edit-input form-control"
-              value="<%= newList[i].name %>"
+              value="<%= items.name %>"
               style="display: none"
             />
             <div>
               <button
                 class="editButton"
                 onclick="editItem(this)"
-                data-index="<%= i %>"
+                data-index="<%= items._id %>"
               >
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
@@ -51,7 +51,7 @@
               </button>
 
               <form class="deleteform" action="/delete" method="post">
-                <input type="hidden" value="<%= i %>" name="index" />
+                <input type="hidden" value="<%= items._id %>" name="index" />
                 <button class="deleteButton" type="submit">
                   <i class="fa-solid fa-trash"></i>
                 </button>
@@ -59,7 +59,7 @@
             </div>
           </div>
         </li>
-        <% } %>
+        <% }); %>
       </ul>
       <div class="addButton">
         <form action="/" method="post">
@@ -175,13 +175,10 @@
         editButton.style.display = "inline-block"; // Show edit button again
 
         // Get the index from the data attribute of the edit button
-        const index = parseInt(
-          button
-            .closest("li")
-            .querySelector(".editButton")
-            .getAttribute("data-index"),
-          10
-        );
+        const index = button
+          .closest("li")
+          .querySelector(".editButton")
+          .getAttribute("data-index");
         console.log("Index to be sent:", index); // Debugging line
         updateTodoItem(index, newValue);
       }
@@ -193,7 +190,7 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            index: parseInt(index, 10),
+            index: index,
             newItem: newValue,
           }),
         })
