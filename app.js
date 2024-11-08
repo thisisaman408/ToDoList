@@ -9,10 +9,9 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.json());
 const _ = require("lodash");
-
-mongoose.connect(
-  "mongodb+srv://admin-aman:Test%40123@cluster0.hjzrf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/todoDB"
-);
+require("dotenv").config();
+const db = process.env.db;
+mongoose.connect(db);
 
 const itemSchema = {
   name: String,
