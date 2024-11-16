@@ -28,11 +28,12 @@ body {
 }
 .mainHead {
   background-color: #008080;
-  width: 50%;
   height: 4rem;
-  margin: 4rem;
+  margin: 4rem auto;
   border-radius: 1rem;
-  min-width: 20rem;
+  min-width: 30rem;
+  text-align: center;
+  max-width: 30rem;
 }
 .day {
   margin-bottom: 3rem;
@@ -45,7 +46,7 @@ body {
 }
 
 .container {
-  width: 50%;
+  width: 90%;
   margin: 4rem auto;
   padding: 2rem;
   border-radius: 0.5rem;

@@ -83,26 +83,32 @@ app.get("/:anything", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  var newItem = req.body.newItem;
+  const newItem = req.body.newItem;
   const title = req.body.title;
-  var dated = date.dated(req);
-  let object = new Item({
+  const dated = date.dated(req);
+
+  const object = new Item({
     name: newItem,
     date: dated,
   });
 
   if (title === date.getDate()) {
-    object.save();
-    res.redirect("/");
-  } else {
-    List.findOne({ name: title }).then((list) => {
-      list.items.push(object);
-      list.save();
-      res.redirect("/" + title);
+    object.save().then(() => {
+      res.redirect("/"); // Return to prevent further code execution
     });
+    return;
+  } else {
+    List.findOne({ name: title })
+      .then((list) => {
+        list.items.push(object);
+        list.save().then(() => {
+          res.redirect("/" + title); // Return after redirect
+        });
+      })
+      .catch((error) => {
+        console.error("Error finding list:", error);
+      });
   }
-
-  console.log("Item saved", object._id);
 });
 
 app.post("/delete", (req, res) => {
@@ -112,10 +118,10 @@ app.post("/delete", (req, res) => {
   if (listTitle === date.getDate()) {
     Item.deleteOne({ _id: index })
       .then(() => {
-        res.redirect("/");
+        res.redirect("/"); // Return after redirect
       })
       .catch((error) => {
-        console.log("Error is : ", error);
+        console.error("Error deleting item:", error);
       });
   } else {
     List.findOneAndUpdate(
@@ -123,10 +129,10 @@ app.post("/delete", (req, res) => {
       { $pull: { items: { _id: index } } }
     )
       .then(() => {
-        res.redirect("/" + listTitle);
+        res.redirect("/" + listTitle); // Return after redirect
       })
       .catch((error) => {
-        console.log("Error is : ", error);
+        console.error("Error deleting item from custom list:", error);
       });
   }
 });
@@ -140,14 +146,14 @@ app.post("/update", async (req, res) => {
     if (listTitle === date.getDate()) {
       await Item.updateOne({ _id: index }, { name: newItem });
       console.log("Item updated successfully in the main list");
-      res.redirect("/");
+      res.redirect("/"); // Redirect after updating
     } else {
       await List.findOneAndUpdate(
         { name: listTitle, "items._id": index },
         { $set: { "items.$.name": newItem } }
       );
       console.log("Item updated successfully in the custom list");
-      res.redirect("/" + listTitle);
+      res.redirect("/" + listTitle); // Redirect after updating
     }
   } catch (err) {
     console.error("Error updating item:", err);
