@@ -20,94 +20,96 @@
     ></script>
   </head>
   <body>
-    <div class="mainHead">
-      <h1 class="day"><%= kindOfDay %></h1>
-    </div>
+    <div class="todoApp">
+      <div class="mainHead">
+        <h1 class="day"><%= kindOfDay %></h1>
+      </div>
 
-    <div class="container">
-      <ul class="list-group">
-        <% newList.forEach((items)=>{ %>
-        <li class="list-group-item listItem">
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="todo-text"> <%= items.name %></span>
-            <span class="todo-date"> <%= items.date %></span>
-            <input
-              type="text"
-              class="edit-input form-control"
-              value="<%= items.name %>"
-              style="display: none"
-            />
-            <div>
-              <button
-                class="editButton"
-                onclick="editItem(this)"
-                data-index="<%= items._id %>"
-              >
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-
-              <button class="confirmButton" onclick="confirmEdit(this)">
-                <i class="fa-solid fa-square-check"></i>
-              </button>
-
-              <form class="deleteform" action="/delete" method="post">
-                <input type="hidden" value="<%= items._id %>" name="index" />
-                <input type="hidden" value="<%= kindOfDay  %>" name="title" />
-                <button class="deleteButton" type="submit">
-                  <i class="fa-solid fa-trash"></i>
+      <div class="container">
+        <ul class="list-group">
+          <% newList.forEach((items)=>{ %>
+          <li class="list-group-item listItem">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="todo-text"> <%= items.name %></span>
+              <span class="todo-date"> <%= items.date %></span>
+              <input
+                type="text"
+                class="edit-input form-control"
+                value="<%= items.name %>"
+                style="display: none"
+              />
+              <div>
+                <button
+                  class="editButton"
+                  onclick="editItem(this)"
+                  data-index="<%= items._id %>"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-              </form>
+
+                <button class="confirmButton" onclick="confirmEdit(this)">
+                  <i class="fa-solid fa-square-check"></i>
+                </button>
+
+                <form class="deleteform" action="/delete" method="post">
+                  <input type="hidden" value="<%= items._id %>" name="index" />
+                  <input type="hidden" value="<%= kindOfDay  %>" name="title" />
+                  <button class="deleteButton" type="submit">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        </li>
-        <% }); %>
-      </ul>
-      <div class="addButton">
-        <form action="/" method="post">
-          <input
-            class="newItemText"
-            type="text"
-            name="newItem"
-            placeholder="Add a new item"
-          />
-          <button
-            type="submit"
-            name="title"
-            class="btn btn-lg btn-outline-primary addBtn"
-            value="<%= kindOfDay %>"
-          >
-            Add
-          </button>
-          <br />
-          <div class="dueDate d-flex align-items-center">
-            <label class="month dateM" for="month">Due Date</label>
-            <select
-              class="dateM monthM monthN"
-              name="month"
-              id="month"
-              required
+          </li>
+          <% }); %>
+        </ul>
+        <div class="addButton">
+          <form action="/" method="post">
+            <input
+              class="newItemText"
+              type="text"
+              name="newItem"
+              placeholder="Add a new item"
+            />
+            <button
+              type="submit"
+              name="title"
+              class="btn btn-lg btn-outline-primary addBtn"
+              value="<%= kindOfDay %>"
             >
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
-            </select>
-            <label for="date"></label>
-            <select class="dateM dateN monthN" name="date" id="date" required>
-              <%for(let i = 1; i <= 31; i++) { %>
-              <option value="<%= i %>"><%= i %></option>
-              <% }%>
-            </select>
-          </div>
-        </form>
+              Add
+            </button>
+            <br />
+            <div class="dueDate d-flex align-items-center">
+              <label class="month dateM" for="month">Due Date</label>
+              <select
+                class="dateM monthM monthN"
+                name="month"
+                id="month"
+                required
+              >
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+              </select>
+              <label for="date"></label>
+              <select class="dateM dateN monthN" name="date" id="date" required>
+                <%for(let i = 1; i <= 31; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+                <% }%>
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <script>

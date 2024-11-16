@@ -23,12 +23,14 @@ body {
     #e8a490 50%
   ); /* Standard syntax */
 }
-
+.todoApp {
+  text-align: center;
+}
 .mainHead {
   background-color: #008080;
   width: 50%;
   height: 4rem;
-  margin: 4rem auto;
+  margin: 4rem;
   border-radius: 1rem;
   min-width: 20rem;
 }
